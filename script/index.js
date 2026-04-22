@@ -10,6 +10,7 @@ const removeActive=()=>{
    });
 }
 const loadWord=(id)=>{
+    manageSpinner(true);
     const url=`https://openapi.programming-hero.com/api/level/${id}`;
     fetch(url)
     .then(res=>(res.json()))
@@ -48,6 +49,15 @@ const displayWordDetail=(word)=>{
             </div>`;
     document.getElementById("word_modal").showModal();
 }
+const manageSpinner=(status)=>{
+    if(status){
+        document.getElementById("spinner").classList.remove("hidden");
+        document.getElementById("word-container").classList.add("hidden");
+    } else {
+        document.getElementById("spinner").classList.add("hidden");
+        document.getElementById("word-container").classList.remove("hidden");
+    }
+}
 
 
     const displayWord=(words)=>{
@@ -76,6 +86,7 @@ const displayWordDetail=(word)=>{
         `
         wordContainer.appendChild(wordDiv);
     });
+        manageSpinner(false);
 }
 
 const displayData=(lessons)=>{
