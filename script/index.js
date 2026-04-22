@@ -21,7 +21,36 @@ const loadWord=(id)=>{
     }
     );
 }
-const displayWord=(words)=>{
+const loadWordDetail=async(id)=>{
+    const url=`https://openapi.programming-hero.com/api/word/${id}`;
+    const res=await fetch(url);
+    const details=await res.json();
+    displayWordDetail(details.data);
+}
+const displayWordDetail=(word)=>{
+    const detailBox=document.getElementById("details-container");
+    detailBox.innerHTML=` <div class="">
+                <h2 class="text-2xl font-bold">(${word.word} <i class="fa-solid fa-microphone-lines"></i> ${word.pronunciation})</h2>
+            </div>
+            <div class="">
+                <h2 class="font-bold">Meaning</h2>
+                <p>${word.meaning || "অর্থ খুজে পাওয়া যায় নি"}</p>
+            </div>
+            <div class="">
+                <h2 class="font-bold">Example</h2>
+                <p>${word.sentence || "উদাহরণ খুজে পাওয়া যায় নি"}</p>
+            </div>
+            <div class="">
+                <h2 class="font-bold">Synonyms</h2>
+                <div class="flex flex-wrap gap-2">
+                    ${word.synonyms?.map(syn => `<span class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]">${syn}</span>`).join('') || "প্রতিশব্দ খুজে পাওয়া যায় নি"}
+                </div>
+            </div>`;
+    document.getElementById("word_modal").showModal();
+}
+
+
+    const displayWord=(words)=>{
     const wordContainer=document.getElementById("word-container");
     wordContainer.innerHTML="";
     if(words.length===0){
@@ -40,7 +69,7 @@ const displayWord=(words)=>{
         <h4 class="text-[1.2rem] font-medium ">Meaning/pronunciation</h4>
         <p class="font-bangla font-semibold text-[1.3rem]">"${word.meaning? word.meaning:"অর্থ খুজে পাওয়া যায় নি"} / ${word.pronunciation? word.pronunciation:"উচ্চারণ খুজে পাওয়া যায় নি"  }"</p>
         <div class="flex justify-between ">
-            <button class="btn  bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-circle-info"></i></button>
+            <button onclick="loadWordDetail(${word.id})" class="btn  bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-circle-info"></i></button>
             <button class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-volume-high"></i></button>
         </div>
     </div>
