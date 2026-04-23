@@ -24,7 +24,9 @@ JavaScript
 This project helped me to:
 
 Improve JavaScript DOM manipulation
+
 Practice UI/UX design basics
+
 Build small interactive web applications
 
 <img width="1357" height="628" alt="image" src="https://github.com/user-attachments/assets/c4d7aa54-5644-4343-8fcd-5402d260ed34" />
@@ -46,7 +48,9 @@ Build small interactive web applications
 
 📌 Future Improvements
 Add pronunciation audio
+
 Add quiz system
+
 Improve UI design
 Add backend for storing words
 👨‍💻 Author
