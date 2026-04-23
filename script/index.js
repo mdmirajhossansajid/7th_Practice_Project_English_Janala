@@ -100,3 +100,25 @@ const displayData=(lessons)=>{
    }
 }
 loadData();
+document.getElementById("btn-search").addEventListener("click",()=>{
+    const Input=document.getElementById("search-input");
+    const searchValue=Input.value.trim().toLowerCase();
+    fetch("https://openapi.programming-hero.com/api/words/all")
+    .then(res=>res.json())
+    .then(data=>{
+        const allwords=data.data;
+        const filterWords=allwords.filter(word=>word.word.toLowerCase().includes(searchValue));
+
+        if(filterWords.length>0){
+            displayWord(filterWords);
+        }else{
+            const wordContainer=document.getElementById("word-container");
+            wordContainer.innerHTML=`
+            <div class="text-center col-span-full my-3 py-6 font-bangla">
+             <img class="mx-auto mb-5" src="./assets/alert-error.png" alt="">
+           <p class="text-[#79716B]">আপনার সার্চ করা শব্দটি আমাদের ডাটাবেসে নেই।</p>
+           <h2 class="text-3xl font-semibold mt-4">দুঃখিত!</h2>
+        </div>`;
+        }
+    })
+})
